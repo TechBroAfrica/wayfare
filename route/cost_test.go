@@ -263,6 +263,10 @@ func TestCostBlockJSONShape(t *testing.T) {
 
 	// The only determined component (fx_loss) carries amount and pct as
 	// strings; the three undetermined ones carry none, only a reason.
+	// Only fx_loss is determined and carries amount and pct as strings. The
+	// other three carry none, only a reason: fees is unmeasured (#96),
+	// slippage needs a comparison across sizes, and expected failure cost
+	// needs failure history that does not exist yet.
 	if got := componentOf(t, parts[0]); got != string(CostFXLoss) {
 		t.Fatalf("parts[0].component = %q, want %q", got, CostFXLoss)
 	}
@@ -274,6 +278,7 @@ func TestCostBlockJSONShape(t *testing.T) {
 	assertUndetermined(t, parts[1])
 
 	for _, idx := range []int{2, 3} {
+	for _, idx := range []int{1, 2, 3} {
 		p := parts[idx]
 		assertUndetermined(t, p)
 	}
