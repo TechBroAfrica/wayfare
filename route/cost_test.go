@@ -277,7 +277,6 @@ func TestCostBlockJSONShape(t *testing.T) {
 	}
 	assertUndetermined(t, parts[1])
 
-	for _, idx := range []int{2, 3} {
 	for _, idx := range []int{1, 2, 3} {
 		p := parts[idx]
 		assertUndetermined(t, p)
